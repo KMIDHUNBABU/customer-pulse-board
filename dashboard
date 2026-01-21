@@ -1,0 +1,36 @@
+import plotly.express as px
+
+# Group revenue by date
+daily_revenue = (
+    df.groupby(df['InvoiceDate'].dt.date)['Revenue']
+    .sum()
+    .reset_index()
+)
+
+# Line chart
+fig = px.line(
+    daily_revenue,
+    x='InvoiceDate',
+    y='Revenue',
+    title='Daily Revenue Trend'
+)
+
+fig.show()
+import plotly.express as px
+
+orders_country = (
+    df.groupby('Country')['Invoice']
+    .nunique()
+    .sort_values(ascending=False)
+    .head(10)
+    .reset_index()
+)
+
+fig = px.bar(
+    orders_country,
+    x='Country',
+    y='Invoice',
+    title='Top 10 Countries by Number of Orders'
+)
+
+fig.show()
