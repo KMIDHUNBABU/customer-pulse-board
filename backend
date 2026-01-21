@@ -1,0 +1,32 @@
+import pandas as pd
+# importing pandas
+import matplotlib.pyplot as plt
+
+
+df = pd.read_csv("data/cleaned_dataset.csv")
+
+df.head()
+df.info()
+
+
+
+df['InvoiceDate'] = pd.to_datetime(df['InvoiceDate'])
+df['Signup_Date'] = pd.to_datetime(df['Signup_Date'])
+df['Last_Login_Date'] = pd.to_datetime(df['Last_Login_Date'])
+# Convert Customer ID safely\ 00
+
+df['Customer ID'] = df['Customer ID'].astype('Int64')
+  ;
+# (Optional) optimize categories
+cat_cols = [
+    'Country','Gender','Customer_Segment',
+    'Marketing_Channel','Category','Subcategory','Payment_Method'
+]
+
+df[cat_cols] = df[cat_cols].astype('category')
+
+df = df.sort_values('InvoiceDate')
+
+
+df.head()
+df.info()
