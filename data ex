@@ -1,0 +1,50 @@
+import pandas as pd
+
+#BASIC COUNTS
+total_orders = df['Invoice'].nunique()
+total_customers = df['Customer ID'].nunique()
+total_quantity = df['Quantity'].sum()
+
+# FINANCIAL KPIs
+total_revenue = df['Revenue'].sum()
+total_profit = df['Profit'].sum()
+avg_order_value = total_revenue / total_orders
+
+#  CUSTOMER KPIs
+churn_rate = df['Churn_Flag'].mean()
+# since 1 = churned, 0 = active
+
+# OPERATIONAL KPIs
+avg_delivery_time = df['Delivery_Time_Days'].mean()
+discount_usage_rate = df['Discount_Applied'].mean()
+promo_usage_rate = df['Promo_Applied'].mean()
+
+#  KPI TABLE (Pulseboard backend)
+kpi_df = pd.DataFrame({
+    "KPI": [
+        "Total Orders",
+        "Total Customers",
+        "Total Quantity Sold",
+        "Total Revenue",
+        "Total Profit",
+        "Average Order Value",
+        "Churn Rate",
+        "Average Delivery Time (Days)",
+        "Discount Usage Rate",
+        "Promo Usage Rate"
+    ],
+    "Value": [
+        total_orders,
+        total_customers,
+        total_quantity,
+        round(total_revenue, 2),
+        round(total_profit, 2),
+        round(avg_order_value, 2),
+        round(churn_rate, 2),
+        round(avg_delivery_time, 2),
+        round(discount_usage_rate, 2),
+        round(promo_usage_rate, 2)
+    ]
+})
+
+kpi_df
